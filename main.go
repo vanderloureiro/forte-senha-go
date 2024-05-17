@@ -1,15 +1,19 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
+	"encoding/json"
 	"math/rand"
+	"net/http"
 )
 
 func main() {
 
-	http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, generatePassword())
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		password := generatePassword()
+		response := map[string]string{"password": password}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEnconder(w).Encode(response)
 	})
 
 	http.ListenAndServe(":8080", nil)
