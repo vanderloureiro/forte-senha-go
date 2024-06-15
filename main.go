@@ -1,22 +1,20 @@
 package main
 
 import (
-	"encoding/json"
+	"html/template"
 	"math/rand"
 	"net/http"
 )
 
 func main() {
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		password := generatePassword()
-		response := map[string]string{"password": password}
+	h1 := func(w http.ResponseWriter, r *http.Request) {
+		tmpl := template.Must(template.ParseFiles("index.html"))
+		tmpl.Execute(w, nil)
+	}
+	http.HandleFunc("/", h1)
 
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEnconder(w).Encode(response)
-	})
-
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8000", nil)
 }
 
 var words = [10]string{"feijao", "bicicleta", "churrasco", "sanduiche", "helicoptero", "geladeira", "ensolarado", "frigideira", "ornitorrinco", "intercambio"}
