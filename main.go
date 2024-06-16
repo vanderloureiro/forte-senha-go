@@ -6,11 +6,16 @@ import (
 	"net/http"
 )
 
+type Password struct {
+	PasswordValue string
+}
+
 func main() {
 
 	h1 := func(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("index.html"))
-		tmpl.Execute(w, nil)
+		password := Password{generatePassword()}
+		tmpl.Execute(w, password)
 	}
 	http.HandleFunc("/", h1)
 
