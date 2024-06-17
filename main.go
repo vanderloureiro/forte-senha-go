@@ -14,8 +14,13 @@ func main() {
 
 	h1 := func(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("index.html"))
-		password := Password{generatePassword()}
-		tmpl.Execute(w, password)
+		if r.Method == "POST" {
+			password := Password{generatePassword()}
+			tmpl.Execute(w, password)
+		} else {
+			tmpl.Execute(w, nil)
+		}
+
 	}
 	http.HandleFunc("/", h1)
 
