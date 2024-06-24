@@ -31,5 +31,14 @@ var words = [10]string{"feijao", "bicicleta", "churrasco", "sanduiche", "helicop
 
 func generatePassword() string {
 	randIndex := rand.Intn(10)
-	return words[randIndex]
+	word := words[randIndex]
+
+	runes := []rune(word)
+
+	for i := 0; i < len(word); i++ {
+		if word[i] == 'a' {
+			runes[i] = '@'
+		}
+	}
+	return string(runes)
 }
