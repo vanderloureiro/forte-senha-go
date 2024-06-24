@@ -3,27 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
     <title>Forte Senha</title>
 </head>
-<style>
-    body {
-        background-color: #1D1E20;
-        color: #F3F3F3;
-        font-family: 'Roboto Mono', monospace;
-    }
-    h1, p, form {
-        display: flex;
-        justify-content: center;
-    }
-</style>
 <body>
-    <div class="center">
-        <h1>Forte Senha</h1>
-        <p>{{ .PasswordValue }}</p>
-    
-        <form action="/" method="post">
-            <button type="submit">Gerar senha</button>
-        </form>
+    <h1>Forte Senha</h1>
+    <div class="password-box">
+        <div class="password-box-inner">
+            <p>{{ .PasswordValue }}</p>
+        </div>
     </div>
+    
+    <form action="/" method="post">
+        <button type="submit">Gerar senha</button>
+    </form>
 </body>
 </html>

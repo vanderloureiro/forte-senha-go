@@ -14,6 +14,8 @@ type Password struct {
 
 func main() {
 
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
 	h1 := func(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("index.html"))
 		if r.Method == "POST" {
@@ -24,6 +26,7 @@ func main() {
 		}
 
 	}
+
 	http.HandleFunc("/", h1)
 
 	http.ListenAndServe(":8000", nil)
