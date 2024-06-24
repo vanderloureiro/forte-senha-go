@@ -4,6 +4,8 @@ import (
 	"html/template"
 	"math/rand"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 type Password struct {
@@ -32,13 +34,13 @@ var words = [10]string{"feijao", "bicicleta", "churrasco", "sanduiche", "helicop
 func generatePassword() string {
 	randIndex := rand.Intn(10)
 	word := words[randIndex]
-
-	runes := []rune(word)
-
-	for i := 0; i < len(word); i++ {
-		if word[i] == 'a' {
-			runes[i] = '@'
-		}
+	word = strings.Replace(word, "a", "@", 1)
+	word = strings.Replace(word, "e", "&", 1)
+	if len(word)%2 == 0 {
+		old := string(word[0])
+		new := strings.ToUpper(old)
+		word = strings.Replace(word, old, new, 1)
 	}
-	return string(runes)
+	word = word + strconv.Itoa(rand.Intn(10)) + strconv.Itoa(rand.Intn(10))
+	return word
 }
